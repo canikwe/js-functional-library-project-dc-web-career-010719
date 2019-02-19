@@ -1,4 +1,7 @@
 arr = [1, 2, 3, 4]
+const callback = function (acc, val) {
+  return acc + val
+}
 
 fi = (function() {
   return {
@@ -7,8 +10,8 @@ fi = (function() {
     },
 
     each: function(collection, callback) {
-        for(const el of collection) {
-            callback(el)
+        for(const el in collection) {
+            callback(collection[el])
         }
         return collection
     },
@@ -21,10 +24,14 @@ fi = (function() {
         return newArray
     },
 
-    reduce: function() {
-
+    reduce: function(collection, callback, initialVal) {
+      let acc = initialVal
+      for(let i = 0; i < collection.length; i++){
+        acc = callback(acc, collection[i], i, collection)
+      }
+      return acc
     },
-    
+
     functions: function() {
 
     },
