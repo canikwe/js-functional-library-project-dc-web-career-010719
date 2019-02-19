@@ -18,18 +18,32 @@ fi = (function() {
 
     map: function(collection, callback) {
         const newArray = []
-        for(const el of collection){
-            newArray.push(callback(el))
+        for(const el in collection){
+            newArray.push(callback(collection[el]))
         }
         return newArray
     },
 
     reduce: function(collection, callback, initialVal) {
-      let acc = initialVal
+        let acc
+        if (initialVal === undefined) {
+            acc = 0
+        } else {
+            acc = initialVal  
+        }
+      
       for(let i = 0; i < collection.length; i++){
         acc = callback(acc, collection[i], i, collection)
       }
       return acc
+    },
+      
+    find: function(collection, callback) {
+     for(const key in collection){
+         if (callback(collection[key]) === collection[key])
+         debugger
+             return collection[key]
+        }
     },
 
     functions: function() {
